@@ -1,0 +1,27 @@
+trigger:
+- main
+
+pool:
+  name: Default
+
+jobs:
+- job: Tarea_A
+  steps:
+  - script: |
+      for i in {1..10}
+      do
+        echo "Hola Mundo $i"
+      done
+    displayName: 'Tarea A - Imprime Hola Mundo 10 veces en pantalla con un job paralelo'
+
+- job: Tarea_B
+  steps:
+  - script: |
+      for i in {1..10}
+      do
+        fecha=$(date +"%Y-%m-%d %H:%M:%S")
+        archivo="archivo_$i.txt"
+        echo "Contenido del archivo $i" > $archivo
+        echo "Nombre del archivo $i: $archivo, Fecha: $fecha"
+      done
+    displayName: 'Tarea B - Script que cree 10 archivos con la fecha y luego lo imprima en consola'
