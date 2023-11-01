@@ -4,7 +4,7 @@ metadata:
   name: flask-nginx-ingress
 spec:
   rules:
-    - host: ec2-54-227-76-83.compute-1.amazonaws.com
+    - host: flask-app.local
       http:
         paths:
         - path: /

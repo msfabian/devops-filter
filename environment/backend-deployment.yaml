@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-  creationTimestamp: null
+    creationTimestamp: null
   labels:
     io.kompose.service: backend
   name: backend
@@ -15,8 +15,6 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f docker-compose.yaml
-        kompose.version: 1.22.0 (955b78124)
       creationTimestamp: null
       labels:
         io.kompose.network/backnet: "true"
@@ -30,10 +28,16 @@ spec:
             - containerPort: 8000
           resources: {}
           env:
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: db-secrets
-                key: db-password
-      restartPolicy: Always
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: db-password
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /mnt/secrets/db-password
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: db-password
 status: {}
